@@ -27,7 +27,7 @@ UNet_residual_10_epoch/
 output*
 GUY*
 POLYGON*
-UNet*
+UNet_dense*
 GEE*/
 /data_new/
 /Model/*
