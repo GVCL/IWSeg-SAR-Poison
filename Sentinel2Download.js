@@ -32,44 +32,44 @@ var newBoundingBoxes = [
   ];
   
   
-  // Define the start and end date for the image collection
-  var startDate = '2023-01-01';
-  var endDate = '2023-12-31';
-  
-  // Function to generate NDWI binary mask for a bounding box
-  function generateNDWIBinaryMask(bbox) {
-    var region = ee.Geometry.Rectangle([bbox.left, bbox.bottom, bbox.right, bbox.top]);
-  
-    // Load Sentinel-2 data
-    var sentinelImageCollection = ee.ImageCollection('COPERNICUS/S2_HARMONIZED')
-                      .filterBounds(region)
-                      .filterDate(startDate, endDate);
-  
-    // Select the image with the smallest cloudy pixel percentage
-    var sentinelImage = sentinelImageCollection
-                        .sort('CLOUDY_PIXEL_PERCENTAGE')
-                        .first()
-                        .clip(region);
-  
-    // Calculate NDWI
-    var ndwi = sentinelImage.normalizedDifference(['B3', 'B8']).rename('NDWI');
-  
-    // Create NDWI mask (binary mask with threshold 0)
-    var ndwiMask = ndwi.gte(-0.25).selfMask();
-  
-    // Return the NDWI mask and the region
-    return {name: bbox.name, ndwiMask: ndwiMask, region: region};
-  }
-  
-  // Loop through the bounding boxes and get the NDWI binary masks
-  var ndwiMasks = boundingBoxes.map(function(bbox) {
-    return generateNDWIBinaryMask(bbox);
-  });
-  
-  // Add the NDWI binary masks to the map
-  ndwiMasks.forEach(function(item) {
-    Map.addLayer(item.ndwiMask, {palette: ['white', 'blue']}, 'NDWI Mask ' + item.name);
-  });
-  
-  // Center the map on the first region for visualization
-  Map.centerObject(ndwiMasks[0].region, 14);
+// Define the start and end date for the image collection
+var startDate = '2023-01-01';
+var endDate = '2023-12-31';
+
+// Function to generate NDWI binary mask for a bounding box
+function generateNDWIBinaryMask(bbox) {
+  var region = ee.Geometry.Rectangle([bbox.left, bbox.bottom, bbox.right, bbox.top]);
+
+  // Load Sentinel-2 data
+  var sentinelImageCollection = ee.ImageCollection('COPERNICUS/S2_HARMONIZED')
+                    .filterBounds(region)
+                    .filterDate(startDate, endDate);
+
+  // Select the image with the smallest cloudy pixel percentage
+  var sentinelImage = sentinelImageCollection
+                      .sort('CLOUDY_PIXEL_PERCENTAGE')
+                      .first()
+                      .clip(region);
+
+  // Calculate NDWI
+  var ndwi = sentinelImage.normalizedDifference(['B3', 'B8']).rename('NDWI');
+
+  // Create NDWI mask (binary mask with threshold 0)
+  var ndwiMask = ndwi.gte(-0.25).selfMask();
+
+  // Return the NDWI mask and the region
+  return {name: bbox.name, ndwiMask: ndwiMask, region: region};
+}
+
+// Loop through the bounding boxes and get the NDWI binary masks
+var ndwiMasks = boundingBoxes.map(function(bbox) {
+  return generateNDWIBinaryMask(bbox);
+});
+
+// Add the NDWI binary masks to the map
+ndwiMasks.forEach(function(item) {
+  Map.addLayer(item.ndwiMask, {palette: ['white', 'blue']}, 'NDWI Mask ' + item.name);
+});
+
+// Center the map on the first region for visualization
+Map.centerObject(ndwiMasks[0].region, 14);
