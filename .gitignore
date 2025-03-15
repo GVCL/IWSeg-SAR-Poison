@@ -35,3 +35,7 @@ Brazil_Shapefile
 *.png
 *.txt
 *.jpg
+segformer_water
+segformer_water_finetuned
+maskformer_water_finetuned/*
+maskformer_water
