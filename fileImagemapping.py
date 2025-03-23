@@ -23,7 +23,7 @@ for filename in os.listdir(directory):
 mappings.sort(key=lambda x: x[0])
 
 # Specify the output CSV file
-output_csv = 'file_mappings.csv'
+output_csv = './Sentinel2Utils/file_mappings.csv'
 
 # Write the mappings to the CSV file
 with open(output_csv, mode='w', newline='') as file:
