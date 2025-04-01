@@ -40,3 +40,5 @@ segformer_water_finetuned
 maskformer_water_finetuned/*
 maskformer_water
 /deeplabv3/*.pth
+maskformer_water_new
+mask2former_water_new
