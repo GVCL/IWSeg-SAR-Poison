@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # IW-Seg-Sar-Poison
 
 ## Dataset Link
