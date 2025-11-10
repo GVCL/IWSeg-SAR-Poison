@@ -35,10 +35,8 @@ Brazil_Shapefile
 *.png
 *.txt
 *.jpg
-segformer_water
-segformer_water_finetuned
-maskformer_water_finetuned/*
-maskformer_water
+segformer_water*
+mask2former_water*
 /deeplabv3/*.pth
 maskformer_water_new
 mask2former_water_new

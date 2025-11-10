@@ -2,10 +2,13 @@ import os
 import rasterio
 import numpy as np
 import matplotlib.pyplot as plt
+import re
 
 # Set your input and output directories
-input_dir = './GEE_Masks/GEE_resized/train_gee/train_30_gee_with_diff_kernels/'
-output_dir = './GEE_Masks/GEE_resized/train_gee/converted_train_30_gee_with_diff_kernels/'
+corruption = 30
+input_dir = f'./GEE_Masks/GEE_resized/train_gee/train_{corruption}_gee_with_diff_kernels/'
+output_dir = f'./sar_images/masks/train_{corruption}/'
+
 os.makedirs(output_dir, exist_ok=True)
 
 for filename in os.listdir(input_dir):
@@ -27,7 +30,13 @@ for filename in os.listdir(input_dir):
                     rgb = (rgb - rgb.min()) / (rgb.max() - rgb.min() + 1e-5)
 
                 # Build output path
-                output_filename = os.path.splitext(filename)[0] + '.png'  # or '.jpg'
+                
+                # Extract the first number in the filename
+                number = re.search(r'\d+', filename).group()
+
+                output_filename = number + ".png"
+                print(output_filename)  # "0.png"
+
                 output_path = os.path.join(output_dir, output_filename)
 
                 # Save using matplotlib
