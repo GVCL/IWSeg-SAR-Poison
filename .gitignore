@@ -28,6 +28,8 @@ output*
 GUY*
 POLYGON*
 UNet_dense*
+UNet_residual*
+UNet_unet++*
 GEE*/
 /data_new/
 /Model/*
@@ -44,3 +46,6 @@ mask2former_water_new
 Maps/*.pdf
 Dataset_Coastline_PNGs
 Bayesian_UNet_*
+logs/resnet_aspp_ndwi
+Bayesian_ResNetASPP_*
+ResNetASPP_*
